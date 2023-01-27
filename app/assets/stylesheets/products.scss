@@ -85,6 +85,17 @@ main section.categories-show {
           display: inline-block;
           margin-left: auto;
         }
+        span {
+          min-width: 110px;
+          padding-top: 0.375em;
+          padding-bottom: 0.375em;
+          padding-left: 1em;
+          padding-right: 1em;
+          background-color: rgb(255, 0, 0);
+          color: white;
+          border-radius: 0.25em;
+          font-family: "Montserrat";
+        }
         button {
           min-width: 110px;
           padding-left: 1em;
