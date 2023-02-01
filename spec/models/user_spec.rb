@@ -110,11 +110,56 @@ RSpec.describe User, type: :model do
       user.password_confirmation = "password"
       expect(user).to be_valid
     end
-
   end
 
   describe '.authenticate_with_credentials' do
-    # examples for this class method here
+    it 'should be successful with valid credentials' do
+    user = User.new({
+      "first_name" => "Test",
+      "last_name" => "Exam",
+      "email" => "email@email.com",
+      "password" => "123pw",
+      "password_confirmation" => "123pw"
+    })
+    user.save
+    expect(User.authenticate_with_credentials("email@email.com", "123pw")).to eq(user)
+    end
+    
+    it 'should fail with incorrect credentials' do
+        user = User.new({
+          "first_name" => "Test",
+          "last_name" => "Exam",
+          "email" => "email@email.com",
+          "password" => "123pw",
+          "password_confirmation" => "123pw"
+        })
+        user.save
+        expect(User.authenticate_with_credentials("email@email.com", "wrongpassword")).to eq(nil)
+    end
+
+    it 'should sucessfully login user when email is typed with extra whitespaces' do
+      user = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
+        "email" => "email@email.com",
+        "password" => "123pw",
+        "password_confirmation" => "123pw"
+      })
+      user.save
+      expect(User.authenticate_with_credentials("     email@email.com        ", "123pw")).to eq(user)
+  end
+
+    it 'should sucessfully login user when email is typed with extra whitespaces' do
+      user = User.new({
+       "first_name" => "Test",
+        "last_name" => "Exam",
+        "email" => "eMaIl@eMaIl.cOm",
+        "password" => "123pw",
+        "password_confirmation" => "123pw"
+      })
+      user.save
+      expect(User.authenticate_with_credentials("EmAiL@eMaIl.CoM", "123pw")).to eq(user)
+    end
   end
 
 end
