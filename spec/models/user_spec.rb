@@ -15,81 +15,101 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    xit 'is created with a matching password and password_confirmation' do
-      @user = User.new({
-        "name" => "Test",
-        "email" => "email@email.com",
-        "password" => "123pw",
-        "password_confirmation" => "123pw"
-      })
-      @user.save
-      expect(@user).to be_valid
-
-      @user = User.new({
-        "name" => "Test",
+    it 'is created with a matching password and password_confirmation' do
+      user = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
         "email" => "email@email.com",
         "password" => "123",
         "password_confirmation" => "123pw"
       })
-      @user.save
-      expect(@user).to_not be_valid
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(user).to be_invalid
+      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
 
     end
 
-    xit 'is created with a unique email' do
-      @user = User.new({
-        "name" => "Test",
+    it 'is created with a unique email' do
+      user1 = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
         "email" => "email@email.com",
         "password" => "123pw",
         "password_confirmation" => "123pw"
       })
-      @user.save
-      @user1 = User.new({
-        "name" => "Exam",
+      user1.save
+      user2 = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
         "email" => "email@email.com",
         "password" => "abc123",
         "password_confirmation" => "abc123"
       })
-      @user1.save
-      expect(@user1).to_not be_valid
-      expect(@user1.errors.full_messages).to include("")
+      user2.save
+      expect(user2).to be_invalid
+      expect(user2.errors.full_messages).to include("Email has already been taken")
     end
 
-    xit 'has email' do
-      @user = User.new({
-        "name" => "Test",
+    it 'requires email' do
+      user = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
         "email" => nil,
         "password" => "abc123",
         "password_confirmation" => "abc123"
       })
-      @user.save
-      expect(@user).to_not be_valid
-      expect(@user.errors.full_messages).to include("Email can't be blank")
+      user.save
+      expect(user).to be_invalid
+      expect(user.errors.full_messages).to include("Email can't be blank")
+
+      user.email = "email@email.com"
+      expect(user).to be_valid
     end
 
-    xit 'has first name' do
-      @user = User.new({
-        "first name" => "Test",
-        "last name" => "Exam",
+    it 'requires first name' do
+      user = User.new({
+        "first_name" => nil,
+        "last_name" => "Exam",
         "email" => "email@email.com",
         "password" => "abc123",
         "password_confirmation" => "abc123"
       })
-      @user.save
-      expect(@user).to_not be_valid
-      expect(@user.errors.full_messages).to include("Email can't be blank")
+      expect(user).to be_invalid
+      expect(user.errors.full_messages).to include("First name can't be blank")
+
+      user.first_name = "Test"
+      expect(user).to be_valid
     end
 
-    it 'has last name' do
+    it 'requires last name' do
+      user = User.new({
+        "first_name" => "Test",
+        "last_name" => nil,
+        "email" => "email@email.com",
+        "password" => "abc123",
+        "password_confirmation" => "abc123"
+      })
+      expect(user).to be_invalid
+      expect(user.errors.full_messages).to include("Last name can't be blank")
 
-
-
+      user.last_name = "Exam"
+      expect(user).to be_valid
     end
 
     it 'has a password of minimum length' do
+      user = User.new({
+        "first_name" => "Test",
+        "last_name" => "Exam",
+        "email" => "email@email.com",
+        "password" => "1",
+        "password_confirmation" => "1"
+      })
+      expect(user).to be_invalid
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 5 characters)")
+
+      user.password = "password"
+      user.password_confirmation = "password"
+      expect(user).to be_valid
     end
 
   end
-
 end
