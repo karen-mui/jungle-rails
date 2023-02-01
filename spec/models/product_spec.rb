@@ -12,8 +12,7 @@ RSpec.describe Product, type: :model do
       @product.quantity = 22
       @product.category = @category
       @product.save
-      expect(@product).to be_valid
-      
+      expect(@product).to be_valid   
     end
     
     it 'name is present' do
@@ -31,7 +30,6 @@ RSpec.describe Product, type: :model do
    
       @product.name = "Peony"
       expect(@product.name).to be_present
-
     end
     
     it 'price is present' do
@@ -45,7 +43,6 @@ RSpec.describe Product, type: :model do
       @product.save
       expect(@product.price_cents).to_not be_present
       expect(@product.errors.full_messages).to include("Price can't be blank")
-   
    
       @product.price_cents = 2222
       expect(@product.price_cents).to be_present
@@ -63,7 +60,6 @@ RSpec.describe Product, type: :model do
       expect(@product.quantity).to_not be_present
       expect(@product.errors.full_messages).to include("Quantity can't be blank")
    
-   
       @product.quantity = 10
       expect(@product.quantity).to be_present
       
@@ -79,15 +75,12 @@ RSpec.describe Product, type: :model do
       expect(@product.category).to_not be_present
       expect(@product.errors.full_messages).to include("Category can't be blank")
       
-      
       @category = Category.new
       @category.name = "Flowers"
       @product.category = @category
       @product.save
       expect(@product.category).to be_present
-      
     end
     
-
   end
 end
