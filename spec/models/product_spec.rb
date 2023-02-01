@@ -27,7 +27,6 @@ RSpec.describe Product, type: :model do
       expect(@product.name).to_not be_present
       expect(@product.errors.full_messages).to include("Name can't be blank")
    
-   
       @product.name = "Peony"
       expect(@product.name).to be_present
     end
