@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  #This is where we create (login) and destroy (logout) sessions 
+
   def new
   end
 
