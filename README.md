@@ -14,7 +14,7 @@ Users can register an account. They can also login/logout (not shown).
 !["Basic HTTP Auth for Admins"](https://github.com/karen-mui/jungle-rails/blob/master/docs/Basic%20HTTP%20Authentication%20for%20Admins.png?raw=true)
 Admins are granted access using basic http authentication.
 
-!["Admin Editing Categories"])(https://github.com/karen-mui/jungle-rails/blob/master/docs/Admin%20Edit%20Categories.png?raw=true)
+!["Admin Editing Categories"](https://github.com/karen-mui/jungle-rails/blob/master/docs/Admin%20Edit%20Categories.png?raw=true)
 Admins can edit categories. They can also edit products individually (not shown).
 
 ### Checkout
